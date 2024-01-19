@@ -1,6 +1,9 @@
 #include "Solution2.h"
 
 #include <ostream>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 // Don't forget to enable the exercise in the SudentConfiguration.h file !
 #include "StudentConfiguration.h"
@@ -8,7 +11,43 @@
 
 float Solution2::GetBalance(const std::string& accountName)
 {
-	return -1.0f;
+    std::string filePath = "BankAccount/" + accountName + ".txt";
+    std::ifstream file(filePath);
+
+    if (!file.is_open())
+    {
+        // Exception        
+        throw std::runtime_error("File not found");
+    }
+
+    float balance = 0.0f;
+    std::string line;
+
+    while (std::getline(file, line))
+    {
+        std::istringstream iss(line);
+        char operation;
+        float amount;
+
+        if (iss >> operation >> amount)
+        {
+            if (operation == '+') {
+                balance += amount;
+            }
+            else if (operation == '-') {
+                balance -= amount;
+            }
+
+            // Exception
+            else { 
+                throw std::runtime_error("Invalid operation");
+            }
+        }
+    }
+
+    file.close();
+
+    return balance;
 }
 
 #endif
