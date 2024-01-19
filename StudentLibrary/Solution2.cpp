@@ -25,11 +25,11 @@ float Solution2::GetBalance(const std::string& accountName)
 
     while (std::getline(file, line))
     {
-        std::istringstream iss(line);
+        std::istringstream lineStream(line);
         char operation;
         float amount;
 
-        if (iss >> operation >> amount)
+        if (lineStream >> operation >> amount)
         {
             if (operation == '+') {
                 balance += amount;
@@ -40,7 +40,7 @@ float Solution2::GetBalance(const std::string& accountName)
 
             // Exception
             else { 
-                throw std::runtime_error("Invalid operation");
+                throw std::exception("Invalid operation");
             }
         }
     }
