@@ -26,19 +26,17 @@ float Solution2::GetBalance(const std::string& accountName)
     while (std::getline(file, line))
     {
         std::istringstream lineStream(line);
-        char operation;
+        std::string operation;
         float amount;
 
         if (lineStream >> operation >> amount)
         {
-            if (operation == '+') {
+            if (operation == "DEPOSIT") {
                 balance += amount;
             }
-            else if (operation == '-') {
+            else if (operation == "WITHDRAW") {
                 balance -= amount;
             }
-
-            // Exception
             else { 
                 throw std::exception("Invalid operation");
             }
